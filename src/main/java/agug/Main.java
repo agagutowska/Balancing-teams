@@ -7,29 +7,23 @@ public class Main {
     public static void main(String[] args) {
 
         List<Person> persons = new ArrayList<>();
-        persons.add(new Person("Johnny", 8));
-        persons.add(new Person("Robbie", 5));
-        persons.add(new Person("Juliet", 3));
-        persons.add(new Person("Scarlet", 5));
-        persons.add(new Person("Jude", 9));
-        persons.add(new Person("Deborah", 6));
+        persons.add(new Person("Johnny", 8.0));
+        persons.add(new Person("Robbie", 5.0));
+        persons.add(new Person("Juliet", 3.0));
+        persons.add(new Person("Scarlet", 5.0));
+        persons.add(new Person("Jude", 9.0));
+        persons.add(new Person("Deborah", 6.0));
+
+        persons.sort((p1, p2) -> Integer.compare((int) p2.rate, (int) p1.rate));
 
         int numberOfTeams = 3;
 
         List<Team> teams = new ArrayList<>();
         for (int i = 0; i < numberOfTeams; i++) {
-            teams.add(new Team());
+            Team team = new Team();
+            team.addMembers(persons.get(i), persons.get(persons.size() - 1 - i));
+            teams.add(team);
         }
-
-        persons.sort((p1, p2) -> Integer.compare(p2.rate, p1.rate));
-
-        int teamIndex = 0;
-        for (Person person : persons) {
-            teams.get(teamIndex).addMember(person);
-            teamIndex = (teamIndex + 1) % numberOfTeams;
-        }
-
-        teams.sort((t1, t2) -> Integer.compare(t2.calculateTotalRate(), t1.calculateTotalRate()));
 
         for (int i = 0; i < numberOfTeams; i++) {
             Team team = teams.get(i);
