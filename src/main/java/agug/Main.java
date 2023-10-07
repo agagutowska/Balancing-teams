@@ -25,11 +25,31 @@ public class Main {
             teams.add(team);
         }
 
+        double totalTeamAverage = 0;
+        for (Team team : teams) {
+            double teamAverageRate = team.calculateTotalRate() / team.getTeamSize();
+            totalTeamAverage += teamAverageRate;
+        }
+        double averageTeamAverage = totalTeamAverage / teams.size();
+
+        double totalSquaredDifferences = 0;
+        for (Team team : teams) {
+            double teamAverageRate = team.calculateTotalRate() / team.getTeamSize();
+            totalSquaredDifferences += Math.pow(teamAverageRate - averageTeamAverage, 2);
+        }
+
+        double variance = totalSquaredDifferences / teams.size();
+        double standardDeviation = Math.sqrt(variance);
+
         for (int i = 0; i < numberOfTeams; i++) {
             Team team = teams.get(i);
             System.out.println("Team no " + (i + 1) + " has " + team.getTeamSize() +
                     " players (" + team.members.get(0).name + ", " + team.members.get(1).name +
-                    "). Average rate: " + team.calculateTotalRate()/team.getTeamSize());
+                    "). Average rate: " + team.calculateTotalRate() / team.getTeamSize());
         }
+
+        System.out.println("Teams rate standard deviation: " + standardDeviation);
     }
 }
+
+
