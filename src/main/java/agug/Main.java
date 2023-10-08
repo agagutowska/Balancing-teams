@@ -1,6 +1,7 @@
 package agug;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -14,7 +15,7 @@ public class Main {
         persons.add(new Person("Jude", 9.0));
         persons.add(new Person("Deborah", 6.0));
 
-        persons.sort((p1, p2) -> Integer.compare((int) p2.rate, (int) p1.rate));
+        persons.sort(Comparator.comparingDouble(Person::getRate));
 
         int numberOfTeams = 3;
 
@@ -37,7 +38,7 @@ public class Main {
 
         double variance = totalSquaredDifferences / teams.size();
         double standardDeviation = Math.sqrt(variance);
-//
+
         for (int i = 0; i < numberOfTeams; i++) {
             Team team = teams.get(i);
             System.out.println("Team no " + (i + 1) + " has " + team.getTeamSize() +
@@ -47,5 +48,3 @@ public class Main {
         System.out.println("Teams rate standard deviation: " + standardDeviation);
     }
 }
-
-
