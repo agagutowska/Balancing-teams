@@ -21,30 +21,34 @@ public class Main {
 
         List<Team> teams = new ArrayList<>();
         for (int i = 0; i < numberOfTeams; i++) {
-            Team team = new Team();
-            team.addMembers(persons.get(i), persons.get(persons.size() - 1 - i));
-            teams.add(team);
+            try {
+                Team team = new Team();
+                team.addMembers(persons.get(i), persons.get(persons.size() - 1 - i));
+                teams.add(team);
+            } catch (UnequalTeamSizeException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
 
-        double totalTeamAverage = teams.stream()
-                .mapToDouble(team -> team.calculateTotalRate() / team.getTeamSize())
-                .sum();
+            double totalTeamAverage = teams.stream()
+                    .mapToDouble(team -> team.calculateTotalRate() / team.getTeamSize())
+                    .sum();
 
-        double averageTeamAverage = totalTeamAverage / teams.size();
+            double averageTeamAverage = totalTeamAverage / teams.size();
 
-        double totalSquaredDifferences = teams.stream()
-                .mapToDouble(team -> Math.pow(team.calculateTotalRate() / team.getTeamSize() - averageTeamAverage, 2))
-                .sum();
+            double totalSquaredDifferences = teams.stream()
+                    .mapToDouble(team -> Math.pow(team.calculateTotalRate() / team.getTeamSize() - averageTeamAverage, 2))
+                    .sum();
 
-        double variance = totalSquaredDifferences / teams.size();
-        double standardDeviation = Math.sqrt(variance);
+            double variance = totalSquaredDifferences / teams.size();
+            double standardDeviation = Math.sqrt(variance);
 
-        for (int i = 0; i < numberOfTeams; i++) {
-            Team team = teams.get(i);
-            System.out.println("Team no " + (i + 1) + " has " + team.getTeamSize() +
-                    " players (" + team.members.get(0).name + ", " + team.members.get(1).name +
-                    "). Average rate: " + team.calculateTotalRate() / team.getTeamSize());
+            for (int i = 0; i < numberOfTeams; i++) {
+                Team team = teams.get(i);
+                System.out.println("Team no " + (i + 1) + " has " + team.getTeamSize() +
+                        " players (" + team.members.get(0).name + ", " + team.members.get(1).name +
+                        "). Average rate: " + team.calculateTotalRate() / team.getTeamSize());
+            }
+            System.out.println("Teams rate standard deviation: " + standardDeviation);
         }
-        System.out.println("Teams rate standard deviation: " + standardDeviation);
     }
-}
