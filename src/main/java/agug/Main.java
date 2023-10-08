@@ -37,7 +37,7 @@ public class Main {
 
         double variance = totalSquaredDifferences / teams.size();
         double standardDeviation = Math.sqrt(variance);
-//
+
         for (int i = 0; i < numberOfTeams; i++) {
             Team team = teams.get(i);
             System.out.println("Team no " + (i + 1) + " has " + team.getTeamSize() +
