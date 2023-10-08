@@ -15,6 +15,10 @@ class Team {
         return members.size();
     }
 
+    public List<Person> getMembers() {
+        return members;
+    }
+
     public double calculateTotalRate() {
         double totalRate = 0.0;
         for (Person person : members) {
